@@ -7,7 +7,7 @@ class Movie(models.Model):
     owner = models.ForeignKey(get_user_model(), related_name='saved_movies', on_delete=models.CASCADE)
     movie_name = models.CharField(max_length=100)
     movie_description = models.TextField()
-    movie_imdb = models.FloatField()
+    movie_imdb = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):

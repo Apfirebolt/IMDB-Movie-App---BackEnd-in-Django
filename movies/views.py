@@ -28,7 +28,8 @@ class MovieViewSet(viewsets.ViewSet):
       return Response(status=status.HTTP_201_CREATED)
 
   def list(self, request):
-      queryset = Movie.objects.all()
+      user_id = request.query_params.get('user_id')
+      queryset = Movie.objects.filter(owner_id=user_id)
       serializer = MovieSerializer(queryset, many=True)
       return Response(serializer.data)
 
@@ -37,3 +38,9 @@ class MovieViewSet(viewsets.ViewSet):
       user = get_object_or_404(queryset, pk=pk)
       serializer = MovieSerializer(user)
       return Response(serializer.data)
+
+  def delete(self, request, *args, **kwargs):
+      obj_id = request.query_params.get('obj_id')
+      delete_obj = Movie.objects.get(pk=obj_id)
+      delete_obj.delete()
+      return Response(data={'response_text': '"Movie successfully deleted!"'}, status=status.HTTP_204_NO_CONTENT)

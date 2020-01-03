@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 
 class MovieSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Movie
-        fields = ('owner', 'movie_name', 'movie_description', 'movie_imdb', 'created_at',)
+        fields = ('id', 'owner', 'movie_name', 'movie_description', 'movie_imdb', 'created_at',)
 
